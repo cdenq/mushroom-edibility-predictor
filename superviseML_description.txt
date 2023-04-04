@@ -1,0 +1,67 @@
+------
+INTRO
+------
+
+Shroom Zoom utilizes 4 supervised machine learning models to make its predictions:
+- Random Forest Classifer
+- Extremely Random Forest
+- Logistic Regression
+- Support Vector machine
+
+Data Preword:
+The cleaned mushroom dataset comprised of possible simulated mushroom feature combinations
+(i.e. all possible undiscovered mushrooms). There are over 60k data points, 100+ features,
+(dropped to 86 in the cleaned version), and mostly categorical (eg. color: red, blue, green).
+The massive, multi-featured dataset is not linearly separable.
+
+------
+MODELS
+------
+Read below to learn more about our models methodologies!
+
+The Random Forest Classifier (RFC) is a supervised learning algorithm that is built form
+an ensemble of decision trees. Individual decision trees take a random subset 
+of features from the entire data set and make small predictions; their results are 
+then merged together to give an overall, averaged prediction. One major advantage of
+RFC is that it does not assume anything about the data distribution. As such, they
+are non-parametric, can handle skewed data, and can handle categorical and binary data.
+These advantages lead are clear when we look at the resulting scores--the RFC produced
+a strong 1.0 predictive score.
+
+The Extremely Random Forest Classifier (ERFC) is similar to the RFC with the exception
+of taking a different random state during every decision tree selection. ERFC is typically
+a more robust model than RFC, and since RFC resulted in a 1.0, the ERFC also did.
+
+The Logistic Regression (LR) model is a predictive classifier that uses a sigmoid function in its
+activation. This model is perhaps the most classical supervised model used to predict binary
+results (yes/no). LR has several major assumptions about the model: the features that are measured
+must be independent of each other (little to no collinearity) and the dataset must be largely
+separable with a sigmoid function. LR is also sensitive to noise, and thus, gives us the lowest
+score in all departments.
+
+The Support Vector Machine (SVM) its a linear classifier that attempts to draw a
+line between two groups. It calcaultes the optimal hyperplane which has the max
+margin between distinct clusters, and thus, is heavily dependent on the distribution of the data.
+Just like the LR, the SVM relies on data being linearly separable; unlike
+the LR, SVM is less resistant to noise and thus scores hight. However, SVM is sensitive to
+strong outliers (which luckily our data does not have.)
+
+------
+ANALYSIS
+------
+As seen in the score comparisons, the RFC and ERFC are the dominant models, likely due to their ability
+to handle noisy data and strong preference for categorical data. The other models, which are much more suited for
+simple, continuous data points, provide a decently powerful model score.
+
+Given the nature of the data (predicting edibility of mushrooms), we want to avoid false positives (predict
+mushroom is edible, but incorrect). As a result, the biggest score we want to pay attention to is the precision score.
+Regarding precision, the RFC/ERFC are highest scoring top models.
+
+------
+KNN
+------
+We also ran a KNN model to check the number of clusters best identified with the model. From the testing odd number of
+k-clusters from 1 to 20, we get a steadily decreasing score graph as the number of clusters increased. However, when we
+checked it with the standard calculation (square root of n), we end up with around 116 clusters. This number increased
+the classification scores to just under 0.99, suggesting a that testing n-clusters will eventually increase in score once again.
+,
